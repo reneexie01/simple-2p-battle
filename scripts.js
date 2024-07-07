@@ -114,8 +114,20 @@ const playGame = (function PlayGame() {
 
     }
 
-    return { play, startGame, getPlayer1, getPlayer2, getGameStatus };
+    const attack = function() {
+
+        const attackAButton = document.querySelector(".attack-a");
+        const attackBButton = document.querySelector(".attack-b");
+        const attackCButton = document.querySelector(".attack-c");
+
+        attackAButton.addEventListener("click", () => play("attackA"));
+        attackBButton.addEventListener("click", () => play("attackB"));
+        attackCButton.addEventListener("click", () => play("attackC"));
+    }
+
+    return { startGame, attack };
 })()
 
 playGame.startGame();
+playGame.attack();
 
