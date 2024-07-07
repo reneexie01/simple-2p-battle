@@ -49,7 +49,15 @@ const domModule = (function DomModule() {
         div.appendChild(paragraph);
     }
 
-    return { playerAnnouncement, attackAnnouncements }
+    const hpAnnouncements = function(checkAlive) {
+        const div = document.querySelector(".attack-announcements");
+        const paragraph = document.createElement("p");
+        const text = document.createTextNode(`${checkAlive} `);
+        paragraph.appendChild(text);
+        div.appendChild(paragraph);
+    }
+
+    return { playerAnnouncement, attackAnnouncements, hpAnnouncements }
 
 })();
 
@@ -76,10 +84,8 @@ const playGame = (function PlayGame() {
                 player2 = new Player(player2Input);   
                 gameActive = true;    
                 domModule.playerAnnouncement(player1, player2);
-                console.log(player1);
-                console.log(player2); 
-                console.log(gameActive);
-                console.log(gameRound);
+                domModule.hpAnnouncements(checkAlive(player1));
+                domModule.hpAnnouncements(checkAlive(player2));
             }
         })
     }
@@ -111,9 +117,8 @@ const playGame = (function PlayGame() {
             if (attacker.isAlive && opponent.isAlive) {
                 const attackResult = attacker[attack](opponent);
                 domModule.attackAnnouncements(attackResult);
-                console.log(attackResult);
-                console.log(checkAlive(attacker));
-                console.log(checkAlive(opponent));
+                domModule.hpAnnouncements(checkAlive(attacker));
+                domModule.hpAnnouncements(checkAlive(opponent));
                 gameRound++;
             } else {
                 return `Someone has died.`;
@@ -133,9 +138,13 @@ const playGame = (function PlayGame() {
         attackCButton.addEventListener("click", () => play("attackC"));
     }
 
-    return { startGame, attack };
+    const gameController = function() {
+        startGame();
+        attack();
+    }
+
+    return { startGame, attack, gameController };
 })()
 
-playGame.startGame();
-playGame.attack();
+playGame.gameController();
 
