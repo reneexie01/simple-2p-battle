@@ -1,3 +1,5 @@
+// class constructor for players
+
 class Player {
     constructor(name) {
         this.name = name;
@@ -27,9 +29,25 @@ class Player {
     }
 }
 
-function playGame() {
+// DOM module
 
-    // TO DO: link the values from the html inputs to the class constructed players upon submission
+const domModule = (function DomModule() {
+
+    const playerAnnouncement = function(player1, player2) {
+        const div = document.querySelector(".player-announcements");
+        const paragraph = document.createElement("p");
+        const text = document.createTextNode(`A battle has started between ${player1.name} vs ${player2.name}!`);
+        paragraph.appendChild(text);
+        div.appendChild(paragraph);
+    }
+
+    return { playerAnnouncement }
+
+})();
+
+// playGame module
+
+const playGame = (function PlayGame() {
 
     let player1, player2;
     let gameRound = 0;
@@ -44,20 +62,23 @@ function playGame() {
 
         startButton.addEventListener("click", function() {
             if (player1Input === "" || player2Input === ""){
-                return;
+                console.log("Missing names.");
             } else {
                 player1 = new Player(player1Input);
                 player2 = new Player(player2Input);   
-                gameActive = true;       
+                gameActive = true;    
+                domModule.playerAnnouncement(player1, player2);
                 console.log(player1);
                 console.log(player2); 
                 console.log(gameActive);
+                console.log(gameRound);
             }
         })
     }
 
     const getPlayer1 = () => player1;
     const getPlayer2 = () => player2;
+    const getGameStatus = () => gameActive;
 
     const checkAlive = function(user) {
 
@@ -65,7 +86,6 @@ function playGame() {
             return `${user.name} has died.`;
         }
         return `${user.name} is still alive with ${user.hp} HP.`;
-
     }
 
     const play = function(attack) {
@@ -94,9 +114,8 @@ function playGame() {
 
     }
 
-    return { play, startGame };
-}
+    return { play, startGame, getPlayer1, getPlayer2, getGameStatus };
+})()
 
-const game = playGame();
+playGame.startGame();
 
-game.startGame();
