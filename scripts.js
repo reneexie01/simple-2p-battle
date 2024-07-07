@@ -41,7 +41,15 @@ const domModule = (function DomModule() {
         div.appendChild(paragraph);
     }
 
-    return { playerAnnouncement }
+    const attackAnnouncements = function(attackResult) {
+        const div = document.querySelector(".attack-announcements");
+        const paragraph = document.createElement("p");
+        const text = document.createTextNode(`${attackResult} `);
+        paragraph.appendChild(text);
+        div.appendChild(paragraph);
+    }
+
+    return { playerAnnouncement, attackAnnouncements }
 
 })();
 
@@ -78,7 +86,6 @@ const playGame = (function PlayGame() {
 
     const getPlayer1 = () => player1;
     const getPlayer2 = () => player2;
-    const getGameStatus = () => gameActive;
 
     const checkAlive = function(user) {
 
@@ -103,6 +110,7 @@ const playGame = (function PlayGame() {
     
             if (attacker.isAlive && opponent.isAlive) {
                 const attackResult = attacker[attack](opponent);
+                domModule.attackAnnouncements(attackResult);
                 console.log(attackResult);
                 console.log(checkAlive(attacker));
                 console.log(checkAlive(opponent));
