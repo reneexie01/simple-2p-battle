@@ -42,7 +42,7 @@ const domModule = (function DomModule() {
     }
 
     const attackAnnouncements = function(attackResult) {
-        const div = document.querySelector(".attack-announcements");
+        const div = document.querySelector(".player-announcements");
         const paragraph = document.createElement("p");
         const text = document.createTextNode(`${attackResult} `);
         paragraph.appendChild(text);
@@ -50,14 +50,19 @@ const domModule = (function DomModule() {
     }
 
     const hpAnnouncements = function(checkAlive) {
-        const div = document.querySelector(".attack-announcements");
+        const div = document.querySelector(".player-announcements");
         const paragraph = document.createElement("p");
         const text = document.createTextNode(`${checkAlive} `);
         paragraph.appendChild(text);
         div.appendChild(paragraph);
     }
 
-    return { playerAnnouncement, attackAnnouncements, hpAnnouncements }
+    const resetDom = function() {
+        const playerDiv = document.querySelector(".player-announcements");
+        playerDiv.innerText = "";
+    }
+
+    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom }
 
 })();
 
@@ -69,14 +74,17 @@ const playGame = (function PlayGame() {
     let gameRound = 0;
     let gameActive = false;
 
-    const startGame = function() {
+    //TODO: Once the game has started you cannot keep pressing Start Game. Also, once you have started the game, clear the values from the inputs.
 
-        const player1Input = document.querySelector("#player1").value;
-        const player2Input = document.querySelector("#player2").value;
+    const startGame = function() {
 
         const startButton = document.querySelector(".start");
 
         startButton.addEventListener("click", function() {
+            
+            const player1Input = document.querySelector("#player1").value;
+            const player2Input = document.querySelector("#player2").value;
+
             if (player1Input === "" || player2Input === ""){
                 console.log("Missing names.");
             } else {
@@ -87,6 +95,17 @@ const playGame = (function PlayGame() {
                 domModule.hpAnnouncements(checkAlive(player1));
                 domModule.hpAnnouncements(checkAlive(player2));
             }
+        })
+    }
+
+    const resetGame = function() {
+
+        const resetButton = document.querySelector(".reset");
+
+        resetButton.addEventListener("click", function() {
+            gameRound = 0;
+            gameActive = false;
+            domModule.resetDom();
         })
     }
 
@@ -127,6 +146,8 @@ const playGame = (function PlayGame() {
 
     }
 
+    //TODO: Unless the game has started you cannot press the attack buttons
+
     const attack = function() {
 
         const attackAButton = document.querySelector(".attack-a");
@@ -141,9 +162,10 @@ const playGame = (function PlayGame() {
     const gameController = function() {
         startGame();
         attack();
+        resetGame();
     }
 
-    return { startGame, attack, gameController };
+    return { gameController };
 })()
 
 playGame.gameController();
