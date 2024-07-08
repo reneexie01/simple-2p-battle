@@ -74,26 +74,28 @@ const playGame = (function PlayGame() {
     let gameRound = 0;
     let gameActive = false;
 
-    //TODO: Once the game has started you cannot keep pressing Start Game. Also, once you have started the game, clear the values from the inputs.
-
     const startGame = function() {
 
         const startButton = document.querySelector(".start");
 
         startButton.addEventListener("click", function() {
-            
-            const player1Input = document.querySelector("#player1").value;
-            const player2Input = document.querySelector("#player2").value;
 
-            if (player1Input === "" || player2Input === ""){
-                console.log("Missing names.");
-            } else {
-                player1 = new Player(player1Input);
-                player2 = new Player(player2Input);   
-                gameActive = true;    
-                domModule.playerAnnouncement(player1, player2);
-                domModule.hpAnnouncements(checkAlive(player1));
-                domModule.hpAnnouncements(checkAlive(player2));
+            let player1Input = document.querySelector("#player1");
+            let player2Input = document.querySelector("#player2");
+
+            if (!gameActive) {
+                if (player1Input.value === "" || player2Input.value === ""){
+                    console.log("Missing names.");
+                } else {
+                    player1 = new Player(player1Input.value);
+                    player2 = new Player(player2Input.value);   
+                    gameActive = true;    
+                    domModule.playerAnnouncement(player1, player2);
+                    domModule.hpAnnouncements(checkAlive(player1));
+                    domModule.hpAnnouncements(checkAlive(player2));
+                    player1Input.value = "";
+                    player2Input.value = "";
+                }
             }
         })
     }
@@ -103,6 +105,13 @@ const playGame = (function PlayGame() {
         const resetButton = document.querySelector(".reset");
 
         resetButton.addEventListener("click", function() {
+
+            let player1Input = document.querySelector("#player1");
+            let player2Input = document.querySelector("#player2");
+
+            player1Input.value = "";
+            player2Input.value = "";
+
             gameRound = 0;
             gameActive = false;
             domModule.resetDom();
