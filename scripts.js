@@ -144,9 +144,10 @@ const playGame = (function PlayGame() {
     
             if (attacker.isAlive && opponent.isAlive) {
                 const attackResult = attacker[attack](opponent);
+                domModule.resetDom();
                 domModule.attackAnnouncements(attackResult);
-                domModule.hpAnnouncements(checkAlive(attacker));
-                domModule.hpAnnouncements(checkAlive(opponent));
+                domModule.hpAnnouncements(checkAlive(getPlayer1()));
+                domModule.hpAnnouncements(checkAlive(getPlayer2()));
                 gameRound++;
             } else {
                 return `Someone has died.`;
@@ -154,8 +155,6 @@ const playGame = (function PlayGame() {
         }
 
     }
-
-    //TODO: Unless the game has started you cannot press the attack buttons
 
     const attack = function() {
 
