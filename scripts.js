@@ -24,6 +24,21 @@ class Player {
         return `${this.name} used attackC on ${opponent.name} and did ${damage} damage.`;
     }
 
+    attackD(attacker) {
+        const heal = Math.floor(Math.random() * 34 + 33);
+        // TODO: Max HP should be 500 even with heal. Need to correct the return statement to calculate actual amount healed.
+
+        const totalHp = attacker.hp + heal;
+
+        if (totalHp > 501) {
+            attacker.hp = 500;
+        } else {
+            attacker.hp = totalHp;
+        }
+
+        return `${this.name} used attackD and healed itself by ${heal} hp points.`
+    }
+
     get isAlive() {
         return this.hp > 0;
     }
@@ -61,6 +76,8 @@ const domModule = (function DomModule() {
         const playerDiv = document.querySelector(".player-announcements");
         playerDiv.innerText = "";
     }
+
+    //TODO: Make a historical record of past attacks
 
     return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom }
 
@@ -144,10 +161,12 @@ const playGame = (function PlayGame() {
     
             if (attacker.isAlive && opponent.isAlive) {
                 const attackResult = attacker[attack](opponent);
+
                 domModule.resetDom();
                 domModule.attackAnnouncements(attackResult);
                 domModule.hpAnnouncements(checkAlive(getPlayer1()));
                 domModule.hpAnnouncements(checkAlive(getPlayer2()));
+
                 gameRound++;
             } else {
                 return `Someone has died.`;
@@ -161,10 +180,12 @@ const playGame = (function PlayGame() {
         const attackAButton = document.querySelector(".attack-a");
         const attackBButton = document.querySelector(".attack-b");
         const attackCButton = document.querySelector(".attack-c");
+        const attackDButton = document.querySelector(".attack-d");
 
         attackAButton.addEventListener("click", () => play("attackA"));
         attackBButton.addEventListener("click", () => play("attackB"));
         attackCButton.addEventListener("click", () => play("attackC"));
+        attackDButton.addEventListener("click", () => play("attackD"));
     }
 
     const gameController = function() {
