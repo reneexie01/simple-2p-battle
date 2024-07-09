@@ -25,8 +25,8 @@ class Player {
     }
 
     attackD(attacker) {
-        const heal = Math.floor(Math.random() * 34 + 33);
 
+        const heal = Math.floor(Math.random() * 34 + 33);
         const totalHp = attacker.hp + heal;
 
         if (totalHp > 501) {
@@ -47,6 +47,16 @@ class Player {
 // DOM module
 
 const domModule = (function DomModule() {
+
+    const player1Announcement = function(player) {
+        const div = document.querySelector("#player1-name");
+        div.innerText = `Player 1: ${player.name}`
+    }
+
+    const player2Announcement = function(player) {
+        const div = document.querySelector("#player2-name");
+        div.innerText = `Player 2: ${player.name}`
+    }
 
     const playerAnnouncement = function(player1, player2) {
         const div = document.querySelector(".player-announcements");
@@ -79,7 +89,7 @@ const domModule = (function DomModule() {
 
     //TODO: Make a historical record of past attacks
 
-    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom }
+    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement }
 
 })();
 
@@ -90,6 +100,42 @@ const playGame = (function PlayGame() {
     let player1, player2;
     let gameRound = 0;
     let gameActive = false;
+
+    const submitPlayer1 = function() {
+        
+        const submitP1 = document.querySelector(".player1-submit");
+
+        submitP1.addEventListener("click", function() {
+            if (!gameActive) {
+                let player1Input = document.querySelector("#player1");
+                if (player1Input.value === "") {
+                    console.log("Missing name for player 1.")    
+                } else {
+                    player1 = new Player(player1Input.value);
+                    domModule.player1Announcement(player1);
+                    console.log(player1);
+                }
+            }
+        })
+    }
+
+    const submitPlayer2 = function() {
+        
+        const submitP2 = document.querySelector(".player2-submit");
+
+        submitP2.addEventListener("click", function() {
+            if (!gameActive) {
+                let player2Input = document.querySelector("#player2");
+                if (player2Input.value === "") {
+                    console.log("Missing name for player 2.")    
+                } else {
+                    player2 = new Player(player2Input.value);
+                    domModule.player2Announcement(player2);
+                    console.log(player2);
+                }
+            }
+        })
+    }
 
     const startGame = function() {
 
@@ -103,9 +149,7 @@ const playGame = (function PlayGame() {
             if (!gameActive) {
                 if (player1Input.value === "" || player2Input.value === ""){
                     console.log("Missing names.");
-                } else {
-                    player1 = new Player(player1Input.value);
-                    player2 = new Player(player2Input.value);   
+                } else {  
                     gameActive = true;    
                     domModule.playerAnnouncement(player1, player2);
                     domModule.hpAnnouncements(checkAlive(player1));
@@ -194,8 +238,10 @@ const playGame = (function PlayGame() {
         resetGame();
     }
 
-    return { gameController };
+    return { submitPlayer1, submitPlayer2, gameController };
 })()
 
 playGame.gameController();
+playGame.submitPlayer1();
+playGame.submitPlayer2();
 

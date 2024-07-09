@@ -7,13 +7,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="player1">
-        <label for="name">Player 1:</label>
-        <input type="text" id="player1" name="name">
+    <p>Input both players to begin a battle: </p>
+    <div class="manual-inputs">
+        <div class="player1">
+            <label for="name">Player 1:</label>
+            <input type="text" id="player1" name="name">
+            <button class="player1-submit">Submit</button>
+        </div>
+        <div class="player2">
+            <label for="name">Player 2:</label>
+            <input type="text" id="player2" name="name">
+            <button class="player2-submit">Submit</button>
+        </div>
     </div>
-    <div class="player2">
-        <label for="name">Player 2:</label>
-        <input type="text" id="player2" name="name">
+    <p>Or select a playable character below: </p>
+    <div class="playable-characters">
+        <button class="squirtle">Squirtle</button>
+        <button class="charmander">Charmander</button>
+        <button class="bulbasaur">Bulbasaur</button>
     </div>
     <div class="start-reset-buttons">
         <button class="start">Start Game</button>
@@ -26,6 +37,10 @@
         <button class="attack-d">Attack D</button>    
     </div>
     <div class="announcements">
+        <div class="player-names">
+            <p id="player1-name">Player 1: </p>
+            <p id="player2-name">Player 2: </p>
+        </div>
         <div class="player-announcements"></div>
     </div>
     <script src="scripts.js"></script>
