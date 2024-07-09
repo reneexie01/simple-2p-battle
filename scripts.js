@@ -93,9 +93,41 @@ const domModule = (function DomModule() {
         div2.innerText = `Player 2: `
     }
 
+    //TODO: If player is squirtle buttons inner text shows water moves (replicate for other playable characters)
+
+    const dynamicButtons = function(player) {
+
+        const attackAButton = document.querySelector(".attack-a");
+        const attackBButton = document.querySelector(".attack-b");
+        const attackCButton = document.querySelector(".attack-c");
+        const attackDButton = document.querySelector(".attack-d");
+
+        if (player.name === "Squirtle") {
+            attackAButton.innerText = `Water Gun`;
+            attackBButton.innerText = `Aqua Jet`;
+            attackCButton.innerText = `Dive`;
+            attackDButton.innerText = `Potion`;
+        } else if (player.name === "Charmander") {
+            attackAButton.innerText = `Ember`;
+            attackBButton.innerText = `Flamethrower`;
+            attackCButton.innerText = `Inferno`;
+            attackDButton.innerText = `Potion`;
+        } else if (player.name === "Bulbasaur") {
+            attackAButton.innerText = `Vine Whip`;
+            attackBButton.innerText = `Razor Leaf`;
+            attackCButton.innerText = `Bullet Seed`;
+            attackDButton.innerText = `Potion`;
+        } else {
+            attackAButton.innerText = `Tackle`;
+            attackBButton.innerText = `Body Slam`;
+            attackCButton.innerText = `Bite`;
+            attackDButton.innerText = `Potion`;
+        }
+    }
+
     //TODO: Make a historical record of past attacks
 
-    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement }
+    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement, dynamicButtons }
 
 })();
 
@@ -212,6 +244,7 @@ const playGame = (function PlayGame() {
                     domModule.playerAnnouncement(player1, player2);
                     domModule.hpAnnouncements(checkAlive(player1));
                     domModule.hpAnnouncements(checkAlive(player2));
+                    domModule.dynamicButtons(player1);
                     player1Input.value = "";
                     player2Input.value = "";
                 }
@@ -259,11 +292,13 @@ const playGame = (function PlayGame() {
             if (gameRound === 0 || gameRound % 2 === 0) {
                 attacker = getPlayer1();
                 opponent = getPlayer2();
+                domModule.dynamicButtons(opponent);
             } else {
                 attacker = getPlayer2();
                 opponent = getPlayer1();
+                domModule.dynamicButtons(opponent);
             }
-    
+
             if (attacker.isAlive && opponent.isAlive) {
                 const attackResult = attacker[attack](opponent);
 
@@ -275,8 +310,10 @@ const playGame = (function PlayGame() {
                 domModule.hpAnnouncements(checkAlive(getPlayer2()));
 
                 gameRound++;
-            } else {
-                return `Someone has died.`;
+            } else if (!attacker.isAlive) {
+                return `${attacker.name} has died.`;
+            } else if (!opponent.isAlive) {
+                return `${opponent.name} has died.`
             }
         }
 
@@ -308,5 +345,3 @@ const playGame = (function PlayGame() {
 })()
 
 playGame.gameController();
-
-
