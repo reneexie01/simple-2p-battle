@@ -26,17 +26,17 @@ class Player {
 
     attackD(attacker) {
         const heal = Math.floor(Math.random() * 34 + 33);
-        // TODO: Max HP should be 500 even with heal. Need to correct the return statement to calculate actual amount healed.
 
         const totalHp = attacker.hp + heal;
 
         if (totalHp > 501) {
             attacker.hp = 500;
+            let maxheal = heal - (totalHp - 500);
+            return `${this.name} used attackD and healed itself by ${maxheal} hp points.`
         } else {
             attacker.hp = totalHp;
+            return `${this.name} used attackD and healed itself by ${heal} hp points.`
         }
-
-        return `${this.name} used attackD and healed itself by ${heal} hp points.`
     }
 
     get isAlive() {
