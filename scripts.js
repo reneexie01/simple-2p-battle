@@ -85,6 +85,12 @@ const domModule = (function DomModule() {
     const resetDom = function() {
         const playerDiv = document.querySelector(".player-announcements");
         playerDiv.innerText = "";
+
+        const div1 = document.querySelector("#player1-name");
+        div1.innerText = `Player 1: `;
+
+        const div2 = document.querySelector("#player2-name");
+        div2.innerText = `Player 2: `
     }
 
     //TODO: Make a historical record of past attacks
@@ -137,6 +143,56 @@ const playGame = (function PlayGame() {
         })
     }
 
+    const playableCharacters = function() {
+
+        const squirtleButton = document.querySelector(".squirtle");
+        const charmanderButton = document.querySelector(".charmander");
+        const bulbasaurButton = document.querySelector(".bulbasaur");
+
+        squirtleButton.addEventListener("click", function() {
+            if(!player1) {
+                player1 = new Player("Squirtle");
+                domModule.player1Announcement(player1);
+                console.log(player1);
+            } else if (!player2) {
+                player2 = new Player("Squirtle");
+                domModule.player2Announcement(player2);
+                console.log(player2);
+            } else {
+                console.log("Reset game.")
+            }
+        })
+
+        charmanderButton.addEventListener("click", function() {
+            if(!player1) {
+                player1 = new Player("Charmander");
+                domModule.player1Announcement(player1);
+                console.log(player1);
+            } else if (!player2) {
+                player2 = new Player("Charmander");
+                domModule.player2Announcement(player2);
+                console.log(player2);
+            } else {
+                console.log("Reset game.")
+            }
+        })
+
+        bulbasaurButton.addEventListener("click", function() {
+            if(!player1) {
+                player1 = new Player("Bulbasaur");
+                domModule.player1Announcement(player1);
+                console.log(player1);
+            } else if (!player2) {
+                player2 = new Player("Bulbasaur");
+                domModule.player2Announcement(player2);
+                console.log(player2);
+            } else {
+                console.log("Reset game.")
+            }
+        })
+
+    }
+
     const startGame = function() {
 
         const startButton = document.querySelector(".start");
@@ -173,6 +229,9 @@ const playGame = (function PlayGame() {
             player1Input.value = "";
             player2Input.value = "";
 
+            player1 = null;
+            player2 = null;
+
             gameRound = 0;
             gameActive = false;
             domModule.resetDom();
@@ -208,6 +267,8 @@ const playGame = (function PlayGame() {
 
                 domModule.resetDom();
                 domModule.attackAnnouncements(attackResult);
+                domModule.player1Announcement(getPlayer1());
+                domModule.player2Announcement(getPlayer2());
                 domModule.hpAnnouncements(checkAlive(getPlayer1()));
                 domModule.hpAnnouncements(checkAlive(getPlayer2()));
 
@@ -233,15 +294,17 @@ const playGame = (function PlayGame() {
     }
 
     const gameController = function() {
+        submitPlayer1();
+        submitPlayer2();
+        playableCharacters();
         startGame();
         attack();
         resetGame();
     }
 
-    return { submitPlayer1, submitPlayer2, gameController };
+    return { gameController };
 })()
 
 playGame.gameController();
-playGame.submitPlayer1();
-playGame.submitPlayer2();
+
 
