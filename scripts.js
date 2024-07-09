@@ -203,8 +203,10 @@ const playGame = (function PlayGame() {
             let player2Input = document.querySelector("#player2");
 
             if (!gameActive) {
-                if (player1Input.value === "" || player2Input.value === ""){
-                    console.log("Missing names.");
+                if (!player1) {
+                    console.log("Player 1 submission required.");
+                } else if (!player2) {
+                    console.log("Player 2 submission required.");
                 } else {  
                     gameActive = true;    
                     domModule.playerAnnouncement(player1, player2);
