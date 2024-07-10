@@ -117,8 +117,6 @@ const domModule = (function DomModule() {
         div2.innerText = `Player 2: `
     }
 
-    //TODO: If player is squirtle buttons inner text shows water moves (replicate for other playable characters)
-
     const dynamicButtons = function(player) {
 
         const attackAButton = document.querySelector(".attack-a");
@@ -126,26 +124,32 @@ const domModule = (function DomModule() {
         const attackCButton = document.querySelector(".attack-c");
         const attackDButton = document.querySelector(".attack-d");
 
+        const attackButtons = document.querySelector(".attack-buttons");
+
         if (player.name === "Squirtle") {
             attackAButton.innerText = `Water Gun`;
             attackBButton.innerText = `Aqua Jet`;
             attackCButton.innerText = `Dive`;
             attackDButton.innerText = `Potion`;
+            // attackButtons.classList.add("water");
         } else if (player.name === "Charmander") {
             attackAButton.innerText = `Ember`;
             attackBButton.innerText = `Flamethrower`;
             attackCButton.innerText = `Inferno`;
             attackDButton.innerText = `Potion`;
+            // attackButtons.classList.add("fire");
         } else if (player.name === "Bulbasaur") {
             attackAButton.innerText = `Vine Whip`;
             attackBButton.innerText = `Razor Leaf`;
             attackCButton.innerText = `Bullet Seed`;
             attackDButton.innerText = `Potion`;
+            // attackButtons.classList.add("grass");
         } else {
             attackAButton.innerText = `Tackle`;
             attackBButton.innerText = `Body Slam`;
             attackCButton.innerText = `Bite`;
             attackDButton.innerText = `Potion`;
+            // attackButtons.classList.add("normal");
         }
     }
 

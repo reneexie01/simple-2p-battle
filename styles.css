@@ -1,0 +1,85 @@
+* {
+    font-family: "Press Start 2P", system-ui;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+input {
+    padding: 10px;
+}
+
+.squirtle, .charmander, .bulbasaur {
+    border: 1px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.squirtle:hover {
+    border: 3px solid blue;
+}
+
+.charmander:hover {
+    border: 3px solid orange;
+}
+
+.bulbasaur:hover {
+    border: 3px solid darkgreen;
+}
+
+.start-reset-buttons {
+    margin: 20px;
+}
+
+.player1-submit, .player2-submit {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.player1-submit:hover, .player2-submit:hover, .attack:hover {
+    cursor:pointer;
+}
+
+.start, .reset {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.start:hover {
+    background: green;
+    color: white;
+    cursor: pointer;
+}
+
+.reset:hover {
+    background: red;
+    color: white;
+    cursor: pointer;
+}
+
+.attack {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.water button:hover {
+    background: blue;
+    color: white;
+}
+
+.fire button:hover {
+    background: orange;
+    color: white;
+}
+
+.grass button:hover {
+    background: darkgreen;
+    color: white;
+}
+
+.normal button:hover {
+    background: darkgray;
+    color: white;
+}
