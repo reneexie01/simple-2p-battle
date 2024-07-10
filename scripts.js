@@ -9,19 +9,43 @@ class Player {
     attackA(opponent) {
         const damage = Math.floor(Math.random() * 100) + 1;
         opponent.hp -= damage;
-        return `${this.name} used attackA on ${opponent.name} and did ${damage} damage.`;
+        if (this.name === "Squirtle") {
+            return `${this.name} used water gun on ${opponent.name} and did ${damage} damage.`;    
+        } else if (this.name === "Charmander") {
+            return `${this.name} used ember on ${opponent.name} and did ${damage} damage.`;
+        } else if (this.name === "Bulbasaur") {
+            return `${this.name} used vine whip on ${opponent.name} and did ${damage} damage.`;
+        } else {
+            return `${this.name} used tackle on ${opponent.name} and did ${damage} damage.`;
+        }
     }
 
     attackB(opponent) {
         const damage = Math.floor(Math.random() * 34 + 33);
         opponent.hp -= damage;
-        return `${this.name} used attackB on ${opponent.name} and did ${damage} damage.`;
+        if (this.name === "Squirtle") {
+            return `${this.name} used aqua jet on ${opponent.name} and did ${damage} damage.`;    
+        } else if (this.name === "Charmander") {
+            return `${this.name} used flamethrower on ${opponent.name} and did ${damage} damage.`;
+        } else if (this.name === "Bulbasaur") {
+            return `${this.name} used razor leaf on ${opponent.name} and did ${damage} damage.`;
+        } else {
+            return `${this.name} used body slam on ${opponent.name} and did ${damage} damage.`;
+        }
     }
 
     attackC(opponent) {
         const damage = 45;
         opponent.hp -= damage;
-        return `${this.name} used attackC on ${opponent.name} and did ${damage} damage.`;
+        if (this.name === "Squirtle") {
+            return `${this.name} used dive on ${opponent.name} and did ${damage} damage.`;    
+        } else if (this.name === "Charmander") {
+            return `${this.name} used inferno on ${opponent.name} and did ${damage} damage.`;
+        } else if (this.name === "Bulbasaur") {
+            return `${this.name} used bullet seed on ${opponent.name} and did ${damage} damage.`;
+        } else {
+            return `${this.name} used bite on ${opponent.name} and did ${damage} damage.`;
+        }
     }
 
     attackD(attacker) {
@@ -32,10 +56,10 @@ class Player {
         if (totalHp > 501) {
             attacker.hp = 500;
             let maxheal = heal - (totalHp - 500);
-            return `${this.name} used attackD and healed itself by ${maxheal} hp points.`
+            return `${this.name} used a potion and healed itself by ${maxheal} hp points.`
         } else {
             attacker.hp = totalHp;
-            return `${this.name} used attackD and healed itself by ${heal} hp points.`
+            return `${this.name} used a potion and healed itself by ${heal} hp points.`
         }
     }
 
