@@ -93,6 +93,7 @@ const domModule = (function DomModule() {
     const attackAnnouncements = function(attackResult) {
         const div = document.querySelector(".player-announcements");
         const paragraph = document.createElement("p");
+        paragraph.classList.add("attack-announcements");
         const text = document.createTextNode(`${attackResult} `);
         paragraph.appendChild(text);
         div.appendChild(paragraph);
@@ -101,10 +102,13 @@ const domModule = (function DomModule() {
     const hpAnnouncements = function(checkAlive) {
         const div = document.querySelector(".player-announcements");
         const paragraph = document.createElement("p");
+        paragraph.classList.add("hp-announcements");
         const text = document.createTextNode(`${checkAlive} `);
         paragraph.appendChild(text);
         div.appendChild(paragraph);
     }
+
+    //TODO: Figure out how to add span into hp to emphasise the remaining hp.
 
     const resetDom = function() {
         const playerDiv = document.querySelector(".player-announcements");
@@ -117,6 +121,10 @@ const domModule = (function DomModule() {
         div2.innerText = `Player 2: `
     }
 
+    const removeDynamicClasses = function(element) {
+        element.classList.remove("water", "fire", "grass", "normal");
+    }
+
     const dynamicButtons = function(player) {
 
         const attackAButton = document.querySelector(".attack-a");
@@ -126,36 +134,47 @@ const domModule = (function DomModule() {
 
         const attackButtons = document.querySelector(".attack-buttons");
 
+        removeDynamicClasses(attackButtons);
+
         if (player.name === "Squirtle") {
             attackAButton.innerText = `Water Gun`;
             attackBButton.innerText = `Aqua Jet`;
             attackCButton.innerText = `Dive`;
             attackDButton.innerText = `Potion`;
-            // attackButtons.classList.add("water");
+            attackButtons.classList.add("water");
         } else if (player.name === "Charmander") {
             attackAButton.innerText = `Ember`;
             attackBButton.innerText = `Flamethrower`;
             attackCButton.innerText = `Inferno`;
             attackDButton.innerText = `Potion`;
-            // attackButtons.classList.add("fire");
+            attackButtons.classList.add("fire");
         } else if (player.name === "Bulbasaur") {
             attackAButton.innerText = `Vine Whip`;
             attackBButton.innerText = `Razor Leaf`;
             attackCButton.innerText = `Bullet Seed`;
             attackDButton.innerText = `Potion`;
-            // attackButtons.classList.add("grass");
+            attackButtons.classList.add("grass");
         } else {
             attackAButton.innerText = `Tackle`;
             attackBButton.innerText = `Body Slam`;
             attackCButton.innerText = `Bite`;
             attackDButton.innerText = `Potion`;
-            // attackButtons.classList.add("normal");
+            attackButtons.classList.add("normal");
         }
+    }
+
+    const clearClasses = function() {
+        const attackButtons = document.querySelector("#clear");
+
+        attackButtons.removeClass(); // TODO: This disables the buttons
+        3
+        attackButtons.classList.add("attack-buttons");
+
     }
 
     //TODO: Make a historical record of past attacks
 
-    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement, dynamicButtons }
+    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement, dynamicButtons, clearClasses }
 
 })();
 
@@ -307,10 +326,10 @@ const playGame = (function PlayGame() {
     const checkAlive = function(user) {
 
         if (!user.isAlive) {
-            return `${user.name} has died.`;
+            return `${user.name} has fainted.`;
         }
         return `${user.name} is still alive with ${user.hp} HP.`;
-    }
+    } // TODO: Add a proper win announcement.
 
     const play = function(attack) {
 
@@ -339,9 +358,9 @@ const playGame = (function PlayGame() {
 
                 gameRound++;
             } else if (!attacker.isAlive) {
-                return `${attacker.name} has died.`;
+                return `${attacker.name} has fainted. ${opponent.name} wins!`;
             } else if (!opponent.isAlive) {
-                return `${opponent.name} has died.`
+                return `${opponent.name} has fainted. ${attacker.name} wins!`
             }
         }
 

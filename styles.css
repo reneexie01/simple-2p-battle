@@ -15,15 +15,15 @@ input {
 }
 
 .squirtle:hover {
-    border: 3px solid blue;
+    border: 3px solid #93c8d0;
 }
 
 .charmander:hover {
-    border: 3px solid orange;
+    border: 3px solid #fe9441;
 }
 
 .bulbasaur:hover {
-    border: 3px solid darkgreen;
+    border: 3px solid #378e8e;
 }
 
 .start-reset-buttons {
@@ -65,21 +65,37 @@ input {
 }
 
 .water button:hover {
-    background: blue;
+    background: #93c8d0;
     color: white;
 }
 
 .fire button:hover {
-    background: orange;
+    background: #fe9441;
     color: white;
 }
 
 .grass button:hover {
-    background: darkgreen;
+    background: #378e8e;
     color: white;
 }
 
 .normal button:hover {
     background: darkgray;
     color: white;
+}
+
+.announcements {
+    margin: 20px;
+}
+
+.hp-announcements {
+    font-size: 0.75rem;
+}
+
+.player-names {
+    font-size: 0.75rem;
+    border: 1px solid black;
+    border-radius: 6px;
+    max-width: 600px;
+    margin: auto;
 }
