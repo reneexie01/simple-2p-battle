@@ -88,7 +88,7 @@ input {
     margin: 20px;
 }
 
-.hp-announcements {
+.attack-announcements, .hp-announcements {
     font-size: 0.75rem;
 }
 
@@ -98,4 +98,16 @@ input {
     border-radius: 6px;
     max-width: 600px;
     margin: auto;
+}
+
+.name, .hp, .damage, .recover, .fainted {
+    font-size: 1rem;
+}
+
+.damage {
+    color: red;
+}
+
+.recover {
+    color: green;
 }

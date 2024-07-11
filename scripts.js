@@ -10,13 +10,13 @@ class Player {
         const damage = Math.floor(Math.random() * 100) + 1;
         opponent.hp -= damage;
         if (this.name === "Squirtle") {
-            return `${this.name} used water gun on ${opponent.name} and did ${damage} damage.`;    
+            return `<span class="name">${this.name}</span> used water gun on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;    
         } else if (this.name === "Charmander") {
-            return `${this.name} used ember on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used ember on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         } else if (this.name === "Bulbasaur") {
-            return `${this.name} used vine whip on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used vine whip on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         } else {
-            return `${this.name} used tackle on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used tackle on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         }
     }
 
@@ -24,13 +24,13 @@ class Player {
         const damage = Math.floor(Math.random() * 34 + 33);
         opponent.hp -= damage;
         if (this.name === "Squirtle") {
-            return `${this.name} used aqua jet on ${opponent.name} and did ${damage} damage.`;    
+            return `<span class="name">${this.name}</span> used aqua jet on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;    
         } else if (this.name === "Charmander") {
-            return `${this.name} used flamethrower on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</pan> used flamethrower on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         } else if (this.name === "Bulbasaur") {
-            return `${this.name} used razor leaf on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used razor leaf on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         } else {
-            return `${this.name} used body slam on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used body slam on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         }
     }
 
@@ -38,13 +38,13 @@ class Player {
         const damage = 45;
         opponent.hp -= damage;
         if (this.name === "Squirtle") {
-            return `${this.name} used dive on ${opponent.name} and did ${damage} damage.`;    
+            return `<span class="name">${this.name}</span> used dive on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;    
         } else if (this.name === "Charmander") {
-            return `${this.name} used inferno on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used inferno on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         } else if (this.name === "Bulbasaur") {
-            return `${this.name} used bullet seed on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used bullet seed on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         } else {
-            return `${this.name} used bite on ${opponent.name} and did ${damage} damage.`;
+            return `<span class="name">${this.name}</span> used bite on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
         }
     }
 
@@ -56,10 +56,10 @@ class Player {
         if (totalHp > 501) {
             attacker.hp = 500;
             let maxheal = heal - (totalHp - 500);
-            return `${this.name} used a potion and healed itself by ${maxheal} hp points.`
+            return `<span class="name">${this.name}</span> used a potion and healed itself by <span class="recover">${maxheal} HP points</span>.`
         } else {
             attacker.hp = totalHp;
-            return `${this.name} used a potion and healed itself by ${heal} hp points.`
+            return `<span class="name">${this.name}</span> used a potion and healed itself by <span class="recover">${heal} HP points</span>.`
         }
     }
 
@@ -94,8 +94,7 @@ const domModule = (function DomModule() {
         const div = document.querySelector(".player-announcements");
         const paragraph = document.createElement("p");
         paragraph.classList.add("attack-announcements");
-        const text = document.createTextNode(`${attackResult} `);
-        paragraph.appendChild(text);
+        paragraph.innerHTML = `${attackResult} `;
         div.appendChild(paragraph);
     }
 
@@ -103,12 +102,11 @@ const domModule = (function DomModule() {
         const div = document.querySelector(".player-announcements");
         const paragraph = document.createElement("p");
         paragraph.classList.add("hp-announcements");
-        const text = document.createTextNode(`${checkAlive} `);
-        paragraph.appendChild(text);
+        paragraph.innerHTML = `${checkAlive} `;
         div.appendChild(paragraph);
     }
 
-    //TODO: Figure out how to add span into hp to emphasise the remaining hp.
+
 
     const resetDom = function() {
         const playerDiv = document.querySelector(".player-announcements");
@@ -163,18 +161,9 @@ const domModule = (function DomModule() {
         }
     }
 
-    const clearClasses = function() {
-        const attackButtons = document.querySelector("#clear");
-
-        attackButtons.removeClass(); // TODO: This disables the buttons
-        3
-        attackButtons.classList.add("attack-buttons");
-
-    }
-
     //TODO: Make a historical record of past attacks
 
-    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement, dynamicButtons, clearClasses }
+    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement, dynamicButtons }
 
 })();
 
@@ -326,9 +315,9 @@ const playGame = (function PlayGame() {
     const checkAlive = function(user) {
 
         if (!user.isAlive) {
-            return `${user.name} has fainted.`;
+            return `<span class="name">${user.name}</span> has <span class="fainted">fainted</span>.`;
         }
-        return `${user.name} is still alive with ${user.hp} HP.`;
+        return `<span class="name">${user.name}</span> is still alive with <span class="hp">${user.hp} HP</span>.`;
     } // TODO: Add a proper win announcement.
 
     const play = function(attack) {
@@ -358,9 +347,9 @@ const playGame = (function PlayGame() {
 
                 gameRound++;
             } else if (!attacker.isAlive) {
-                return `${attacker.name} has fainted. ${opponent.name} wins!`;
+                return `${opponent.name} wins!`;
             } else if (!opponent.isAlive) {
-                return `${opponent.name} has fainted. ${attacker.name} wins!`
+                return `${attacker.name} wins!`
             }
         }
 
