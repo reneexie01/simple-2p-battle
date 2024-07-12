@@ -127,3 +127,8 @@ input {
     font-size: 0.75rem;
     color: red;
 }
+
+.winner-announcements {
+    font-size: 2rem;
+    color: gold;
+}

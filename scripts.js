@@ -106,6 +106,14 @@ const domModule = (function DomModule() {
         div.appendChild(paragraph);
     }
 
+    const winnerAnnouncement = function(message) {
+        const div = document.querySelector(".player-announcements");
+        const paragraph = document.createElement("p");
+        paragraph.classList.add("winner-announcements");
+        paragraph.innerHTML = `${message} `;
+        div.appendChild(paragraph);
+    }
+
     const resetDom = function() {
         const playerDiv = document.querySelector(".player-announcements");
         playerDiv.innerText = "";
@@ -159,9 +167,7 @@ const domModule = (function DomModule() {
         }
     }
 
-    //TODO: Make a historical record of past attacks
-
-    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement, dynamicButtons }
+    return { playerAnnouncement, attackAnnouncements, hpAnnouncements, resetDom, player1Announcement, player2Announcement, dynamicButtons, winnerAnnouncement }
 
 })();
 
@@ -345,10 +351,16 @@ const playGame = (function PlayGame() {
                 domModule.hpAnnouncements(checkAlive(getPlayer2()));
 
                 gameRound++;
-            } else if (!attacker.isAlive) {
-                return `${opponent.name} wins!`;
-            } else if (!opponent.isAlive) {
-                return `${attacker.name} wins!`
+            } 
+            
+            if (!attacker.isAlive) {
+                gameActive = false;
+                domModule.winnerAnnouncement(`${opponent.name} wins!`);
+            } 
+            
+            if (!opponent.isAlive) {
+                gameActive = false;
+                domModule.winnerAnnouncement(`${attacker.name} wins!`);
             }
         }
 
