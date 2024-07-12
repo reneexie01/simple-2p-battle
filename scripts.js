@@ -10,13 +10,13 @@ class Player {
         const damage = Math.floor(Math.random() * 100) + 1;
         opponent.hp -= damage;
         if (this.name === "Squirtle") {
-            return `<span class="name">${this.name}</span> used water gun on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;    
+            return `<span class="name">${this.name}</span> used water gun on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;    
         } else if (this.name === "Charmander") {
-            return `<span class="name">${this.name}</span> used ember on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used ember on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         } else if (this.name === "Bulbasaur") {
-            return `<span class="name">${this.name}</span> used vine whip on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used vine whip on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         } else {
-            return `<span class="name">${this.name}</span> used tackle on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used tackle on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         }
     }
 
@@ -24,13 +24,13 @@ class Player {
         const damage = Math.floor(Math.random() * 34 + 33);
         opponent.hp -= damage;
         if (this.name === "Squirtle") {
-            return `<span class="name">${this.name}</span> used aqua jet on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;    
+            return `<span class="name">${this.name}</span> used aqua jet on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;    
         } else if (this.name === "Charmander") {
-            return `<span class="name">${this.name}</pan> used flamethrower on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used flamethrower on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         } else if (this.name === "Bulbasaur") {
-            return `<span class="name">${this.name}</span> used razor leaf on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used razor leaf on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         } else {
-            return `<span class="name">${this.name}</span> used body slam on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used body slam on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         }
     }
 
@@ -38,13 +38,13 @@ class Player {
         const damage = 45;
         opponent.hp -= damage;
         if (this.name === "Squirtle") {
-            return `<span class="name">${this.name}</span> used dive on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;    
+            return `<span class="name">${this.name}</span> used dive on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;    
         } else if (this.name === "Charmander") {
-            return `<span class="name">${this.name}</span> used inferno on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used inferno on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         } else if (this.name === "Bulbasaur") {
-            return `<span class="name">${this.name}</span> used bullet seed on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used bullet seed on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         } else {
-            return `<span class="name">${this.name}</span> used bite on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} damage</span>.`;
+            return `<span class="name">${this.name}</span> used bite on <span class="name">${opponent.name}</span> and did <span class="damage">${damage} HP damage</span>.`;
         }
     }
 
@@ -85,8 +85,8 @@ const domModule = (function DomModule() {
     const playerAnnouncement = function(player1, player2) {
         const div = document.querySelector(".player-announcements");
         const paragraph = document.createElement("p");
-        const text = document.createTextNode(`A battle has started between ${player1.name} vs ${player2.name}!`);
-        paragraph.appendChild(text);
+        paragraph.classList.add("battle-announcements");
+        paragraph.innerHTML = `A battle has started between <span class="name">${player1.name}</span> vs <span class="name">${player2.name}</span>!`;
         div.appendChild(paragraph);
     }
 
@@ -105,8 +105,6 @@ const domModule = (function DomModule() {
         paragraph.innerHTML = `${checkAlive} `;
         div.appendChild(paragraph);
     }
-
-
 
     const resetDom = function() {
         const playerDiv = document.querySelector(".player-announcements");
@@ -183,7 +181,7 @@ const playGame = (function PlayGame() {
             if (!gameActive) {
                 let player1Input = document.querySelector("#player1");
                 if (player1Input.value === "") {
-                    console.log("Missing name for player 1.")    
+                    console.log("Missing name for player 1.") 
                 } else {
                     player1 = new Player(player1Input.value);
                     domModule.player1Announcement(player1);
@@ -201,7 +199,8 @@ const playGame = (function PlayGame() {
             if (!gameActive) {
                 let player2Input = document.querySelector("#player2");
                 if (player2Input.value === "") {
-                    console.log("Missing name for player 2.")    
+                    console.log("Missing name for player 2.") 
+                    return "Missing name for player 2."   
                 } else {
                     player2 = new Player(player2Input.value);
                     domModule.player2Announcement(player2);

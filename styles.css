@@ -62,6 +62,7 @@ input {
     border: 1px solid black;
     border-radius: 6px;
     padding: 10px;
+    min-width: 150px;
 }
 
 .water button:hover {
@@ -85,19 +86,29 @@ input {
 }
 
 .announcements {
-    margin: 20px;
+    margin: 40px;
 }
 
-.attack-announcements, .hp-announcements {
+.attack-announcements, .hp-announcements, .battle-announcements {
     font-size: 0.75rem;
+}
+
+.attack-announcements, .battle-announcements {
+    margin: 40px;
+}
+
+.hp-announcements {
+    margin: 20px;
 }
 
 .player-names {
     font-size: 0.75rem;
     border: 1px solid black;
     border-radius: 6px;
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
 }
 
 .name, .hp, .damage, .recover, .fainted {
@@ -110,4 +121,9 @@ input {
 
 .recover {
     color: green;
+}
+
+.submit-empty {
+    font-size: 0.75rem;
+    color: red;
 }
